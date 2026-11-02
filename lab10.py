@@ -95,7 +95,7 @@ binary_covariates = ["sex", "diabetes", "smoker", "chronic_kidney_disease","beta
 cox_df = pd.read_csv(cox_file)
 
 # Convert sex to a numeric value
-cox_df["sex"] = cox_df["sex"].map({"Female": 0, "Male": 1})
+cox_df["sex"] = cox_df["sex"].astype(str).str.strip().str.lower().isin(["male"]).astype(int)
 
 #prep the models data
 model_df = cox_df[[cox_time_column, cox_event_column] + numeric_covariates + binary_covariates]
